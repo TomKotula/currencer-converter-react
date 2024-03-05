@@ -1,4 +1,4 @@
-# Currency-converter
+# Currency-converter-react
 
 Right now you can convert cash in Euros into Zlotys (Polish currency). Both select options does not work. I will develop this project soon so that you will be able to convert PLN, EUR, USD and CHF currencies.
 
