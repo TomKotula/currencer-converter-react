@@ -10,7 +10,7 @@ html {
 
 body {
   font-family: 'Open Sans', sans-serif;
-  /* background-image: url("background.img"); */
+  background-image: url("backgroundimage.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
