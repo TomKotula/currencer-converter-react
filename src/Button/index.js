@@ -1,7 +1,7 @@
 
 const Button = () => (
     <div className="form__button--container">
-        <button className="form__button">Convert</button>
+        <button className="form__button" type="submit">Convert</button>
     </div>
 );
 
