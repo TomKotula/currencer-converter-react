@@ -1,10 +1,6 @@
 import Header from "./Header";
-import Options from "./Options";
-import Inputs from "./Inputs";
-import Button from "./Button";
 import Container from "./Container";
 import Form from "./Form";
-import { useEffect } from "react";
 import { useState } from "react";
 
 function App() {
@@ -38,20 +34,16 @@ function App() {
   return (
     <Container >
       <Header />
-      <Form onSubmit={onFormSubmit}>
-        <Options
-          fromCurrency={fromCurrency}
-          toCurrency={toCurrency}
-          handleFromCurrencyChange={handleFromCurrencyChange}
-          handleToCurrencyChange={handleToCurrencyChange}
-        />
-        <Inputs
-          amount={amount}
-          handleAmountChange={handleAmountChange}
-          result={result}
-        />
-        <Button />
-      </Form>
+      <Form
+        onSubmit={onFormSubmit}
+        fromCurrency={fromCurrency}
+        toCurrency={toCurrency}
+        handleFromCurrencyChange={handleFromCurrencyChange}
+        handleToCurrencyChange={handleToCurrencyChange}
+        amount={amount}
+        handleAmountChange={handleAmountChange}
+        result={result}
+      />
     </Container>
   );
 }
