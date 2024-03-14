@@ -8,10 +8,6 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 function App() {
-  useEffect(() => {
-    console.log("Hello every single person visiting this app! :D");
-  }, []);
-
   const [amount, setAmount] = useState('');
   const [result, setResult] = useState('');
   const [fromCurrency, setFromCurrency] = useState('');
