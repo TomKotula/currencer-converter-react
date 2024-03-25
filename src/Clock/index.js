@@ -14,8 +14,7 @@ const Clock = () => {
 
   return (
     <div className="clock__container">
-      {date.toLocaleString("en-US", 
-      { 
+      {date.toLocaleString("en-US", {
         weekday: "long",
         month: "long",
         day: "numeric",
@@ -25,6 +24,6 @@ const Clock = () => {
       })}
     </div>
   );
-}
+};
 
 export default Clock;

@@ -4,10 +4,10 @@ import Form from "./Form";
 import { useState } from "react";
 
 function App() {
-  const [amount, setAmount] = useState('');
-  const [result, setResult] = useState('');
-  const [fromCurrency, setFromCurrency] = useState('');
-  const [toCurrency, setToCurrency] = useState('');
+  const [amount, setAmount] = useState("");
+  const [result, setResult] = useState("");
+  const [fromCurrency, setFromCurrency] = useState("");
+  const [toCurrency, setToCurrency] = useState("");
 
   const onFormSubmit = (event) => {
     event.preventDefault();
@@ -32,7 +32,7 @@ function App() {
   };
 
   return (
-    <Container >
+    <Container>
       <Header />
       <Form
         onSubmit={onFormSubmit}
