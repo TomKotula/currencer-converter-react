@@ -1,21 +1,44 @@
 import Header from "./Header";
 import Container from "./Container";
 import Form from "./Form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [amount, setAmount] = useState("");
   const [result, setResult] = useState("");
-  const [fromCurrency, setFromCurrency] = useState("");
-  const [toCurrency, setToCurrency] = useState("");
+  const [fromCurrency, setFromCurrency] = useState("USD");
+  const [toCurrency, setToCurrency] = useState("PLN");
+  const [exchangeRates, setExchangeRates] = useState({});
+
+  useEffect(() => {
+    const updateExchangeRates = async () => {
+      try {
+        const response = await fetch("https://open.er-api.com/v6/latest/PLN");
+        const data = await response.json();
+        setExchangeRates(data.rates);
+      } catch (error) {
+        console.error("Error fetching exchange rates:", error);
+      }
+    };
+
+    updateExchangeRates();
+  }, []);
 
   const onFormSubmit = (event) => {
     event.preventDefault();
 
-    const course = 4.45;
+    if (Object.keys(exchangeRates).length === 0) {
+      console.log("Exchange rates not available. Waiting for update...");
+      return;
+    }
 
-    const convertedResult = (amount * course).toFixed(2) + "zł";
+    calculateResult();
+  };
 
+  const calculateResult = () => {
+    const convertedAmount =
+      (amount * exchangeRates[toCurrency]) / exchangeRates[fromCurrency];
+    const convertedResult = convertedAmount.toFixed(2) + " " + toCurrency;
     setResult(convertedResult);
   };
 
