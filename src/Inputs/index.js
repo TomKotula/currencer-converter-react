@@ -1,8 +1,8 @@
+import { InputContainer, Input } from "./styled";
 
 const Inputs = ({ amount, handleAmountChange, result }) => (
-    <div className="form__input--container">
-        <input
-            className="form__input form__input--grey"
+    <InputContainer>
+        <Input
             type="number"
             name="number"
             min="1"
@@ -11,15 +11,14 @@ const Inputs = ({ amount, handleAmountChange, result }) => (
             required
             placeholder="amount"
         />
-        <input
-            className="form__input form__input--grey"
+        <Input
             type="text"
             name="readonly"
             readOnly
             value={result}
             placeholder="result"
         />
-    </div>
+    </InputContainer>
 );
 
 export default Inputs;

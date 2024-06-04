@@ -1,8 +1,9 @@
+import { ButtonContainer, MainButton } from "./styled";
 
 const Button = () => (
-    <div className="form__button--container">
-        <button className="form__button" type="submit">Convert</button>
-    </div>
+  <ButtonContainer>
+    <MainButton type="submit">Convert</MainButton>
+  </ButtonContainer>
 );
 
 export default Button;
