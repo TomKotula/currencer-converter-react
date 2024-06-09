@@ -1,72 +1,49 @@
 import Header from "./Header";
 import Container from "./Container";
 import Form from "./Form";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useCurrencyConverter from "./useCurrencyConverter";
+import { Loading, Error } from "./loadingAndErrorStyles";
 
 function App() {
   const [amount, setAmount] = useState("");
+  const [fromCurrency, setFromCurrency] = useState("PLN");
+  const [toCurrency, setToCurrency] = useState("USD");
   const [result, setResult] = useState("");
-  const [fromCurrency, setFromCurrency] = useState("USD");
-  const [toCurrency, setToCurrency] = useState("PLN");
-  const [exchangeRates, setExchangeRates] = useState({});
-
-  useEffect(() => {
-    const updateExchangeRates = async () => {
-      try {
-        const response = await fetch("https://open.er-api.com/v6/latest/PLN");
-        const data = await response.json();
-        setExchangeRates(data.rates);
-      } catch (error) {
-        console.error("Error fetching exchange rates:", error);
-      }
-    };
-
-    updateExchangeRates();
-  }, []);
-
-  const onFormSubmit = (event) => {
-    event.preventDefault();
-
-    if (Object.keys(exchangeRates).length === 0) {
-      console.log("Exchange rates not available. Waiting for update...");
-      return;
-    }
-
-    calculateResult();
-  };
-
-  const calculateResult = () => {
-    const convertedAmount =
-      (amount * exchangeRates[toCurrency]) / exchangeRates[fromCurrency];
-    const convertedResult = convertedAmount.toFixed(2) + " " + toCurrency;
-    setResult(convertedResult);
-  };
-
-  const handleAmountChange = (event) => {
-    setAmount(event.target.value);
-  };
-
-  const handleFromCurrencyChange = (event) => {
-    setFromCurrency(event.target.value);
-  };
-
-  const handleToCurrencyChange = (event) => {
-    setToCurrency(event.target.value);
-  };
+  const apiUrl =
+    "https://api.currencyapi.com/v3/latest?apikey=cur_live_n0t0wy9gOpDWE1xRmKNv89VIKYH4M0T9ElbhbG4C&currencies=PLN%2CUSD%2CEUR%2CCHF";
+  const {
+    isLoading,
+    error,
+    onFormSubmit,
+    handleAmountChange,
+    handleFromCurrencyChange,
+    handleToCurrencyChange,
+  } = useCurrencyConverter(apiUrl);
 
   return (
     <Container>
       <Header />
-      <Form
-        onSubmit={onFormSubmit}
-        fromCurrency={fromCurrency}
-        toCurrency={toCurrency}
-        handleFromCurrencyChange={handleFromCurrencyChange}
-        handleToCurrencyChange={handleToCurrencyChange}
-        amount={amount}
-        handleAmountChange={handleAmountChange}
-        result={result}
-      />
+      {isLoading && <Loading>Give us a moment...</Loading>}
+      {error && <Error>{error}</Error>}
+      {!isLoading && !error && (
+        <Form
+          onSubmit={(event) =>
+            onFormSubmit(event, amount, fromCurrency, toCurrency, setResult)
+          }
+          fromCurrency={fromCurrency}
+          toCurrency={toCurrency}
+          handleFromCurrencyChange={(event) =>
+            handleFromCurrencyChange(event, setFromCurrency)
+          }
+          handleToCurrencyChange={(event) =>
+            handleToCurrencyChange(event, setToCurrency)
+          }
+          amount={amount}
+          handleAmountChange={(event) => handleAmountChange(event, setAmount)}
+          result={result}
+        />
+      )}
     </Container>
   );
 }
