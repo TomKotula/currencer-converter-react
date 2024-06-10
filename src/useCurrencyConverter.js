@@ -9,9 +9,7 @@ const useCurrencyConverter = (apiUrl) => {
     const updateExchangeRates = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(apiUrl, {
-          method: "GET",
-        });
+        const response = await fetch(apiUrl);
         const data = await response.json();
 
         if (data && data.data) {

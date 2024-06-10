@@ -4,14 +4,13 @@ import Form from "./Form";
 import { useState } from "react";
 import useCurrencyConverter from "./useCurrencyConverter";
 import { Loading, Error } from "./loadingAndErrorStyles";
+import { apiUrl } from "./constans";
 
 function App() {
   const [amount, setAmount] = useState("");
   const [fromCurrency, setFromCurrency] = useState("PLN");
   const [toCurrency, setToCurrency] = useState("USD");
   const [result, setResult] = useState("");
-  const apiUrl =
-    "https://api.currencyapi.com/v3/latest?apikey=cur_live_n0t0wy9gOpDWE1xRmKNv89VIKYH4M0T9ElbhbG4C&currencies=PLN%2CUSD%2CEUR%2CCHF";
   const {
     isLoading,
     error,
